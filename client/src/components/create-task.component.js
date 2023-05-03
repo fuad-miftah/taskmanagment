@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import DatePicker from 'react-datepicker';
-//import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateTask extends Component{
   constructor(props) {
@@ -9,12 +9,14 @@ export default class CreateTask extends Component{
 
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       title: '',
       description: '',
-      complete: false
+      complete: false,
+      date: new Date()
     }
   }
 
@@ -29,6 +31,12 @@ export default class CreateTask extends Component{
       description: e.target.value
     })
   }
+
+  onChangeDate(date) {
+    this.setState({
+      date: date
+    })
+  }
   
 
 
@@ -38,7 +46,8 @@ export default class CreateTask extends Component{
     const task = {
       title: this.state.title,
       description: this.state.description,
-      complete: this.state.complete
+      complete: this.state.complete,
+      date: this.state.date
     }
 
     console.log(task);
@@ -72,6 +81,16 @@ export default class CreateTask extends Component{
           onChange={this.onChangeDescription} 
           rows="3">
           </textarea>
+        </div>
+
+        <div className="form-group"> 
+          <label><h2>Due Date: </h2></label>
+          <div>
+          <DatePicker
+           selected = {this.state.date}
+           onChange = {this.onChangeDate}
+           />
+          </div>
         </div>
 
         <div className="form-group">

@@ -9,6 +9,8 @@ const Task = props => (
     <summary style={{fontSize: 30 + 'px'}}>{props.task.title}</summary>
     
     <p style={{fontSize: 20 + 'px'}}>{props.task.description}</p>
+    <p style={{fontSize: 20 + 'px'}}>Due Date: {props.task.date.substring(0,10)}</p>
+    {props.task.complete ? <p style={{fontSize: 20 + 'px'}}>Status: Completed</p> : <p style={{fontSize: 20 + 'px'}}>Status: Incomplete</p>}
     <button onClick={() => { props.deleteTask(props.task._id) }} className='btn btn-primary bg-success'>
 					Delete
 				  </button>

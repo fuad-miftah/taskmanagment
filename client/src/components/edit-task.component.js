@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-//import DatePicker from 'react-datepicker';
-//import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -15,12 +15,14 @@ class EditTask extends Component{
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeComplete = this.onChangeComplete.bind(this);
+    this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       title: '',
       description: '',
-      complete: false
+      complete: false,
+      date: new Date()
     }
   }
 
@@ -58,6 +60,11 @@ class EditTask extends Component{
     })
   }
 
+  onChangeDate(date) {
+    this.setState({
+      date: date
+    })
+  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -66,7 +73,8 @@ class EditTask extends Component{
     const task = {
       title: this.state.title,
       description: this.state.description,
-      complete: this.state.complete
+      complete: this.state.complete,
+      date: this.state.date
     }
 
     console.log(task);
@@ -102,6 +110,16 @@ class EditTask extends Component{
           onChange={this.onChangeDescription} 
           rows="3">
           </textarea>
+        </div>
+
+        <div className="form-group"> 
+          <label><h2>Due Date: </h2></label>
+          <div>
+          <DatePicker
+           selected = {this.state.date}
+           onChange = {this.onChangeDate}
+           />
+          </div>
         </div>
         <button onClick={this.onChangeComplete} className='btn btn-primary bg-success' style={{marginBottom: 10 + 'px', marginTop : 10 + 'px'}}>click to mark complete</button>
 

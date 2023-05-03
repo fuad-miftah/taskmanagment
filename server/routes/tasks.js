@@ -10,13 +10,14 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    //const complete = req.body.complete;
     const complete = false;
+    const date = Date.parse(req.body.date);
   
     const newTask = new Task({
       title,
       description,
       complete,
+      date
     });
   
     newTask.save()
@@ -42,6 +43,7 @@ router.route('/update/:id').post((req, res) => {
         task.title = req.body.title; 
         task.description = req.body.description;
         task.complete = req.body.complete;
+        task.date = req.body.date;
   
         task.save()
           .then(() => res.json('Task updated!'))
